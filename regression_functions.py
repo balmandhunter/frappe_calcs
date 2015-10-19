@@ -442,7 +442,6 @@ def custom_mse_scoring_function(y, y_pred, factor, cutoff):
 def forward_selection_step(model, b_f, features, df, ref_column, scoring_metric, days_tr, factor, cutoff):
     #initialize min_MSE with a very large number
     min_score = sys.maxint
-    print min_score
     next_feature = ''
     for f in features:
         score_cv_step = avg_cv_score_for_all_days(df, b_f + [f], ref_column, model, scoring_metric, days_tr, factor, cutoff)

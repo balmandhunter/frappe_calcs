@@ -238,7 +238,7 @@ def assign_pod_calibration_times(pod_num, time_chunk):
             xlim = ['2014-08-9 00:00:00', '2014-8-16 00:00:00']
     elif time_chunk == 4:
         if pod_num == 'cham_2':
-            xlim = ['2014-07-27 17:00:00', '2014-7-28 1:00:00']
+            xlim = ['2014-8-3 00:00:00', '2014-8-4 0:00:00']
     elif time_chunk == 5:
         if pod_num == 'cham_2':
             xlim = ['2014-08-3 11:00:00', '2014-8-3 18:00:00']
@@ -267,16 +267,29 @@ def plot_fitted_and_ref_vs_time(df, pod_num, time_chunk, ref_column):
 def plot_fitted_and_ref_vs_time_no_lines(df, pod_num, time_chunk, ref_column):
     plt.figure(facecolor='w', figsize = (15,10))
     a, b, axes, label_size = plot_params()
-    df.ref_fit.plot(marker = '.',linestyle = '--', label = 'Reference')
+    df.ref_fit.plot(marker = '.',linestyle = '', label = 'Reference')
     if time_chunk != 0:
         xlim = assign_pod_calibration_times(pod_num, time_chunk)
         df.O3_fit.plot(marker = '.',linestyle = '', color='r', xlim = xlim, label = 'Predicted')
     else:
         df.O3_fit.plot(marker = '.',linestyle = '', color='r', label = 'Predicted')
     axes.set_ylim([-10,90])
-    plt.legend(fontsize = label_size, loc = "best")
-    plt.ylabel('Ozone Concentration (ppb)', size = label_size)
-    plt.xlabel('Date', size = label_size)
+    plt.legend(fontsize = 24, loc = "best")
+    plt.ylabel('Ozone Concentration (ppb)', size = 24)
+    plt.xlabel('Date', size = 24)
+
+
+def plot_fitted_vs_time_no_lines(df, pod_num, time_chunk, ref_column):
+    plt.figure(facecolor='w', figsize = (15,10))
+    a, b, axes, label_size = plot_params()
+    if time_chunk != 0:
+        xlim = assign_pod_calibration_times(pod_num, time_chunk)
+        df.O3_fit.plot(marker = '.',linestyle = '',  xlim = xlim, label = 'Predicted')
+    else:
+        df.O3_fit.plot(marker = '.',linestyle = '', label = 'Predicted')
+    axes.set_ylim([-10,90])
+    plt.ylabel('Ozone Concentration (ppb)', size = 24)
+    plt.xlabel('Time', size = 24)
 
 
 def plot_field(df_best, df_base, df_tower, time_chunk):
