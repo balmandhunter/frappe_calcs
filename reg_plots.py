@@ -18,7 +18,7 @@ def plot_params():
     return a, b, plt.gca(), size
 
 
-def plot_tr_and_holdout(df, pod_num, ref_column, label, cutoff):
+def plot_tr_and_holdout(df, xlim, pod_num, ref_column, label, cutoff):
     plt.figure(facecolor='w', figsize = (15,20))
     a, b, axes, label_size = plot_params()
     plt.ylabel('Ozone Concentration (ppb)', size = label_size)
@@ -26,31 +26,36 @@ def plot_tr_and_holdout(df, pod_num, ref_column, label, cutoff):
 
     ax1 = plt.subplot(311)
     df[ref_column].plot(marker = '.',linestyle = '-', label = label)
-    xlim = assign_pod_calibration_times(pod_num, 1)
+    if xlim != None:
+        xlim = assign_pod_calibration_times(pod_num, 1)
     ax1.set_xlim(xlim)
     plt.axhline(y = cutoff, color = 'r', linestyle = '-.')
 
-    ax2 = plt.subplot(312)
-    df[ref_column].plot(marker = '.',linestyle = '-', label = 'Training Data')
-    xlim = assign_pod_calibration_times(pod_num, 2)
-    ax2.set_xlim(xlim)
-    plt.axhline(y = cutoff, color = 'r', linestyle = '-.')
+    if xlim != None:
+        ax2 = plt.subplot(312)
+        df[ref_column].plot(marker = '.',linestyle = '-', label = 'Training Data')
+        if xlim != None:
+            xlim = assign_pod_calibration_times(pod_num, 2)
+        ax2.set_xlim(xlim)
+        plt.axhline(y = cutoff, color = 'r', linestyle = '-.')
 
-    ax3 = plt.subplot(313)
-    df[ref_column].plot(marker = '.',linestyle = '-', label = 'Training Data')
-    xlim = assign_pod_calibration_times(pod_num, 3)
-    ax3.set_xlim(xlim)
-    plt.axhline(y = cutoff, color = 'r', linestyle = '-.')
+        ax3 = plt.subplot(313)
+        df[ref_column].plot(marker = '.',linestyle = '-', label = 'Training Data')
+        if xlim != None:
+            xlim = assign_pod_calibration_times(pod_num, 3)
+        ax3.set_xlim(xlim)
+        plt.axhline(y = cutoff, color = 'r', linestyle = '-.')
 
 
-def plot_03_temp_rh(df, pod_num, ref_column, label, cutoff, chunk):
+def plot_03_temp_rh(df, xlim, pod_num, ref_column, label, cutoff, chunk):
     plt.figure(facecolor='w', figsize = (15,20))
     a, b, axes, label_size = plot_params()
     plt.xlabel('Time', size = 18)
 
     ax1 = plt.subplot(411)
     df['e2v03'].plot(marker = '.',linestyle = '-', label = label)
-    xlim = assign_pod_calibration_times(pod_num, chunk)
+    if xlim != None:
+        xlim = assign_pod_calibration_times(pod_num, chunk)
     plt.ylabel('MOx Sensor Ozone Signal ', size = label_size)
     ax1.set_xlim(xlim)
     ax1.axes.get_xaxis().set_visible(False)
@@ -74,38 +79,39 @@ def plot_03_temp_rh(df, pod_num, ref_column, label, cutoff, chunk):
     ax4.set_xlim(xlim)
 
 
-def plot_03_temp_rh_no_scale(df, pod_num, ref_column, label, cutoff, chunk):
+def plot_03_temp_rh_no_scale(df, xlim, pod_num, ref_column, label, cutoff, chunk):
     plt.figure(facecolor='w', figsize = (5,20))
     a, b, axes, label_size = plot_params()
     plt.xlabel('Time', size = 18)
 
     ax1 = plt.subplot(411)
     df['e2v03'].plot(marker = '.',linestyle = '-', label = label)
-    xlim = assign_pod_calibration_times(pod_num, chunk)
+    if xlim != None:
+        xlim = assign_pod_calibration_times(pod_num, chunk)
     plt.ylabel('MOx Sensor Ozone Signal ', size = label_size)
     ax1.set_xlim(xlim)
-    ax1.set_ylim([600,620])
+    # ax1.set_ylim([600,620])
     ax1.axes.get_xaxis().set_visible(False)
 
     ax2 = plt.subplot(412)
     df[ref_column].plot(marker = '.',linestyle = '-', label = label)
     plt.ylabel('Ozone Concentration (ppb)', size = label_size)
     ax2.set_xlim(xlim)
-    ax2.set_ylim([20,80])
+    # ax2.set_ylim([20,80])
     ax2.axes.get_xaxis().set_visible(False)
 
     ax3 = plt.subplot(413)
     df['Temp'].plot(marker = '.',linestyle = '-', label = label)
     plt.ylabel('Temperature (C)', size = label_size)
     ax3.set_xlim(xlim)
-    ax3.set_ylim([45,47])
+    # ax3.set_ylim([45,47])
     ax3.axes.get_xaxis().set_visible(False)
 
     ax4 = plt.subplot(414)
     df['Rh'].plot(marker = '.',linestyle = '-', label = label)
     plt.ylabel('Relative Humidity', size = label_size)
     ax4.set_xlim(xlim)
-    ax4.set_ylim([16,25])
+    # ax4.set_ylim([16,25])
 
 
 

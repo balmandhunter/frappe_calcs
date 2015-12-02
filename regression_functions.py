@@ -140,19 +140,17 @@ def sep_tr_and_holdout_pre_defined(df, ref_column, chunks):
         df_hold = df_hold[~df_hold.index.isin(del_these)]
     print 'df_hold', df_hold.chunk.unique()
 
-
-    for i in hold_del_end:
-        end_chunk_loc = df_hold.chunk[df_hold.chunk == i].index.tolist()
-        del_these = end_chunk_loc[(len(end_chunk_loc)-6):(len(end_chunk_loc)+1)]
-        df_hold = df_hold[~df_hold.index.isin(del_these)]
-    print 'df_hold', df_hold.chunk.unique()
+    # for i in hold_del_end:
+    #     end_chunk_loc = df_hold.chunk[df_hold.chunk == i].index.tolist()
+    #     del_these = end_chunk_loc[(len(end_chunk_loc)-6):(len(end_chunk_loc)+1)]
+    #     df_hold = df_hold[~df_hold.index.isin(del_these)]
+    # print 'df_hold', df_hold.chunk.unique()
     return df_tr, df_hold, chunks_tr, days_tr
 
 
 def sep_tr_and_holdout(df, ref_column):
     #find the unique values of the day + AM/PM column
     chunk_list = df.chunk.unique()
-    print chunk_list
 
     #shuffle the chunks of time
     np.random.shuffle(chunk_list)
@@ -210,6 +208,8 @@ def sep_tr_and_holdout(df, ref_column):
         end_chunk_loc = df_hold.chunk[df_hold.chunk == i].index.tolist()
         del_these = end_chunk_loc[(len(end_chunk_loc)-89):(len(end_chunk_loc)+1)]
         df_hold = df_hold[~df_hold.index.isin(del_these)]
+
+    print 'holdout chunks: ', hold_chunks
 
     return df_tr, df_hold, chunks_tr, days_tr
 
