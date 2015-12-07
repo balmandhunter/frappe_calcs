@@ -273,7 +273,7 @@ def fitting_func(model, X_T, y_T, X_CV, y_CV, cutoff):
     #fit a linear regression on the training data
     model.fit(X_T, y_T)
     #find the normalized MSE for the training and holdout data
-    MSE_high_day = np.mean((y_CV[y_CV >= 50] - model.predict(X_CV)[y_CV >= 50])**2)
+    MSE_high_day = np.mean((y_CV[y_CV >= cutoff] - model.predict(X_CV)[y_CV >= cutoff])**2)
     return np.mean((y_CV - model.predict(X_CV))**2), np.mean((y_T - model.predict(X_T))**2), model.predict(X_CV), MSE_high_day
 
 

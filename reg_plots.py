@@ -258,7 +258,7 @@ def assign_pod_calibration_times(pod_num, time_chunk):
 def plot_fitted_and_ref_vs_time(df, pod_num, time_chunk, ref_column):
     plt.figure(facecolor='w', figsize = (15,10))
     a, b, axes, label_size = plot_params()
-    df.ref_fit.plot(marker = '.',linestyle = '-', label = 'Reference Data')
+    df[ref_column].plot(marker = '.',linestyle = '-', label = 'Reference Data')
     if time_chunk != 0:
         xlim = assign_pod_calibration_times(pod_num, time_chunk)
         df.O3_fit.plot(marker = '.',linestyle = '-', xlim = xlim, label = 'Predicted Data')
